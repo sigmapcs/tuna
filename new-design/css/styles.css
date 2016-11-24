@@ -1,0 +1,23 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+h1 {
+  text-align: center;
+  margin: 2em auto;
+  text-transform: uppercase;
+}
+
+.slider-container {
+  margin-top: 2em;
+  max-height: 350px;
+  display: flex;
+  transition: all .3s;
+  left: 0;
+}
