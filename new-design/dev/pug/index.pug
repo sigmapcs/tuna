@@ -6,15 +6,41 @@ html(lang="es")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Document
-    link(rel="stylesheet", href="css/styles.css")
-
-
+    link(rel="stylesheet", href="https://file.myfontastic.com/cCpu5mAezx9VVmUU38eZQb/icons.css")
+    link(rel="stylesheet", href="css/formulario.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+    script(src="js/formulario.js")
   body
     h1 tuna branding
-    #slider.slider-container
-      -for(var i=1; i <=3; i++)
-        img(src="img/pruebatino1-01.jpg", alt="")
-    a(href="#")#prev Anterior
-    a(href="#")#next Siguiente
-    script(src="js/jquery.js")
-    script(src="js/scripts.js")
+    form(method="post", action="php/envio.php").form#form
+      .inputs
+        .input-group.width-50
+          span.form__span.icon-name
+          input.form__input(type="text", name="name" id="name", placeholder="Nombre:", required)
+          //--label(for="name") Nombre:
+        .input-group.width-50
+          span.form__span.icon-cia
+          input.form__input(type="text", name="company" id="company", placeholder="Empresa:", required)
+          //--label(for="company") Empresa:
+      .inputs
+        .input-group.width-50
+          span.form__span.icon-mail
+          input.form__input(type="email", name="email" id="email", placeholder="Correo Elecrónico:", required)
+          //--label(for="email") Correo Elecrónico:
+        .input-group.width-50
+          span.form__span.icon-phone
+          input.form__input(type="text", name="phone" id="phone", placeholder="Teléfono:", required)
+          //--label(for="phone") Teléfono:
+      .textarea-group
+        span.form__span.icon-edit1
+        textarea.form__textarea(name="message", id='message', placeholder="Mensaje:",)
+        //--label(for"message") Mensaje:
+      .form__footer
+        .form__log
+          #success.success
+            p Su mensaje fue enviado con éxito, en breve nos pondrémos es contácto con usted
+          #error.error
+            p ocurrio un problema al intenta enviar su mensaje, por favor, vuelva a intentarlo
+        .form-button
+          button.form-enviar(type="submit") Enviar
+    script(src="js/slider.js")

@@ -5,8 +5,7 @@ const gulp = require('gulp'),
     htmlmin = require('gulp-htmlmin'),
     plumber = require('gulp-plumber'),
     sitemap = require('gulp-sitemap'),
-    compress = require('gulp-yuicompressor'),
-    minifyCSS = require('gulp-minify-css');
+    compress = require('gulp-yuicompressor');;
 
 const postcss = require('gulp-postcss'),
     cssnano = require('cssnano'),
@@ -26,7 +25,7 @@ const postcssPlugin = [
         autoprefixer:{
             add: true
         },
-        core: true
+        core: false
     })
 ];
 
@@ -38,18 +37,16 @@ const
     },
     files ={
         fonts:[
-            `${dir.dev}/assets/fonts/**/*.*`
+            `${dir.dev}/assets/css/fonts/**/*.*`
         ],
         css:[
             `${dir.nm}/normalize.css/normalize.css`,
             // `${dir.nm}/animate.css/animate.min.css`,
             // `${dir.dev}/assets/css/fonts.css`
-            // `${dir.dev}/assets/css/owl.carousel.css`,
-            // `${dir.dev}/assets/css/owl.theme.css`,
-            // `${dir.dev}/assets/css/owl.transitionscss`,
-            `${dir.dev}/assets/css/jquery.fancybox.css`,
-            `${dir.nm}/nivo-slider/nivo-slider.css`,
-            `${dir.dev}/assets/css/nivo/default.css`,
+            `${dir.dev}/assets/css/owl.carousel.css`,
+            `${dir.dev}/assets/css/owl.theme.css`,
+            `${dir.dev}/assets/css/owl.transitionscss`,
+            `${dir.dev}/assets/css/jquery.fancybox.css`
         ],
         mCSS: 'styles.min.css',
         mJS: 'scripts.min.js',
@@ -57,15 +54,15 @@ const
             // `${dir.dev}/assets/js/blank.js`
             `${dir.nm}/jquery/dist/jquery.js`,
             // `${dir.dev}/assets/js/edgrid-menu.js`
-            // `${dir.dev}/assets/js/jquery.slides.js`,
-            // `${dir.dev}/assets/js/owl.carousel.js`,
-            `${dir.dev}/assets/js/jquery.fancybox.js`,
-            `${dir.nm}/nivo-slider/jquery.nivo.slider.pack.js`
+            `${dir.dev}/assets/js/jquery.slides.js`,
+            `${dir.dev}/assets/js/owl.carousel.js`,
+            `${dir.dev}/assets/js/jquery.fancybox.js`
+            // `${dir.nm}/wowjs/dist/wow.min.js`
         ]
     },
     opts ={
         pug:{
-            pretty : false
+            pretty : true
         },
         sass:{
             outputStyle: 'nested'
@@ -103,7 +100,12 @@ gulp.task('styles', ()=>{
     .pipe(sass(opts.sass).on('error', sass.logError))
     .pipe(postcss(postcssPlugin))
     .pipe(sourcemaps.write())
-    .pipe(minifyCSS())
+    // .pipe(cachebust())
+
+        // .on("warning", function(message){
+        //     // Log missing assets
+        //     gutil.log(gutil.colors.red(message));
+        // })
     .pipe(gulp.dest('./dist/css'))
     // .pipe(gulp.dest('./dev/assets/css/'))
     .pipe(browserSync.stream());
@@ -113,21 +115,29 @@ gulp.task('pug', ()=> {
     gulp.src('./dev/pug/*.pug')
     .pipe(plumber())
     .pipe(pug(opts.pug))
-    .pipe(htmlmin(opts.htmlmin))
+    // .pipe(htmlmin(opts.htmlmin))
     .pipe(gulp.dest('./dist'))
     .on('end', browserSync.reload);
 });
 
 gulp.task('es6',() => {
-    return gulp.src('./dev/es6/*.js')
+    return gulp.src('./dev/es5/*.js')
         .pipe(sourcemaps.init())
         .pipe(babel(opts.es6))
-        .pipe(uglify())
-        .pipe(concat('scripts.js'))
+        // .pipe(uglify())
+        // .pipe(concat('scripts.js'))
         .pipe(sourcemaps.write())
+        .pipe(compress({
+          type: 'js'
+        }))
         .pipe(gulp.dest('./dist/js/'))
         // .pipe(gulp.dest('./dev/assets/js/'))
         .on('end', browserSync.reload);
+});
+gulp.task('es5',() => {
+  return gulp.src('./dev/es5/*.js')
+    .pipe(gulp.dest('./dist/js/'))
+    .on('end', browserSync.reload);
 });
 
 gulp.task('default', () => {
@@ -137,6 +147,7 @@ gulp.task('default', () => {
     gulp.watch('./dev/scss/**/*.scss', ['styles']);
     gulp.watch('./dev/pug/**/*.pug', ['pug']);
     gulp.watch('./dev/es6/**/*.js',['es6']);
+    gulp.watch('./dev/es5/**/*.js',['es5']);
     gulp.watch('./dev/assets/js/*.js',['cJS']);
 });
 gulp.task('img', () =>
@@ -173,7 +184,7 @@ gulp.task('fonts', ()=>{
 gulp.task('cJS', ()=>{
     return gulp.src(files.JS)
         .pipe(concat(files.mJS))
-        .pipe( uglify() )
+        // .pipe( uglify() )
         // .pipe(compress({
         //   type: 'js'
         // }))
@@ -185,21 +196,20 @@ gulp.task('cALL', ['cCSS','cJS','img']);
 gulp.task('finalizar', ['cCSS','cJS','html']);
 gulp.task('images',['img','webp','svg']);
 gulp.task('statics',['sitemap','robots']);
-gulp.task('finish',['pug','styles','es6','cCSS','cJS']);
 
 gulp.task('sitemap', function () {
     gulp.src('dist/**/*.html', {
         read: false
     })
         .pipe(sitemap({
-            siteUrl: 'http://codigobarrera.com.mx'
+            siteUrl: 'http://corporativolunayasociados.com.mx'
         }))
         .pipe(gulp.dest('./dist'));
 });
 var robots = require('gulp-robots');
 
 gulp.task('robots', function () {
-    gulp.src('dist/**/*.html')
+    gulp.src('dist/index.html')
         .pipe(robots({
             useragent: '*',
             allow: ['/css/*.css','/css/*.css?','/css/*.css$','/js/*.js','/js/*.js?','/js/*.js$','/img/*.jpg','/img/*.png'],
@@ -207,8 +217,4 @@ gulp.task('robots', function () {
             sitemap: '/sitemap.xml'
         }))
         .pipe(gulp.dest('./dist'));
-});
-gulp.task('static', ()=>{
-  gulp.src('dev/assets/static/**/*.*')
-    .pipe(gulp.dest('dist/static'))
 });

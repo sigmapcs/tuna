@@ -1,22 +1,141 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+$font-family: 'Open Sans', sans-serif;
+$placeholder: #7A9C3E;
 *,*::before,*::after{
   box-sizing: border-box;
-  margin: 0;
 }
-img{
+.form{
+  //background: orangered;
   width: 100%;
-  display: block;
+  max-width: 900px;
+  margin: 0 auto;
 }
-h1{
-  text-align: center;
-  margin: 2em auto;
-  text-transform: uppercase;
+.input-group{
+  position: relative;
+  //background: lightblue;
+  margin-bottom: 1em;
+  //height: 2em;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  overflow: hidden;
 }
-.slider-container{
-  margin-top: 2em;
-  max-height: 350px;
-  display: flex;
-  // overflow: hidden;
-  transition: all .3s;
+.textarea-group{
+  @extend .input-group;
+  span{
+    height: 100%;
+    &::before{
+      position: relative;
+      top: .3em !important;
+    }
+  }
+  label{
+    top: .3em;
+    transform: translateY(0);
+  }
+}
+span{
+  position: absolute;
   left: 0;
-  // display: none;
+  width: 2em;
+  height: 100%;
+  background: #7A9C3E;
+  text-align: center;
+  color: rgba(#000,.65);
+  border-right: 1px solid darkgrey;
+  z-index: 1000000;
+  &::before{
+    position: relative;
+    top: 25%;
+    color: rgba(whitesmoke,.95);
+  }
+}
+
+input, textarea{
+  display: inline-block;
+  line-height: 2em;
+  border: none;
+  height: 2em;
+  width: 100%;
+  padding-left: 2.7em;
+  padding-right: 3px;
+  position: relative;
+  font-size: 1em;
+  font-family: $font-family;
+  //z-index: 5;
+}
+textarea{
+  display: block;
+  height: 5.5em;
+  resize: none;
+  z-index: 10;
+  line-height: 1;
+  padding-top: 5px;
+}
+label{
+  color: #7A9C3E;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(2em + 8px);
+  z-index: 1000;
+}
+.inputs{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.width-50{
+  width: 48%;
+  @media screen and(max-width: 768px){
+    width: 100%;
+  }
+}
+.form-enviar{
+  background: #7A9C3E;
+  border: none;
+  padding: 0 1.5em;
+  color: whitesmoke;
+  font-weight: bold;
+  line-height: 2.5em;
+  font-size: 1em;
+  transition: all .3s;
+  cursor: pointer;
+  float: right;
+  border-radius: 10px;
+  &:hover{
+    background: darken(#7A9C3E,10);
+  }
+  &:focus{
+    outline: none;
+  }
+  &:active{
+    transform: scale(.95);
+  }
+}
+input, textarea{
+  &:focus{
+    + label{
+      opacity: 0;
+    }
+  }
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $placeholder;
+    font-weight: bold;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: $placeholder;
+    font-weight: bold;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: $placeholder;
+    font-weight: bold;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: $placeholder;
+    font-weight: bold;
+  }
+}
+.input-full{
+
 }

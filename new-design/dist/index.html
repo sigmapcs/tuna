@@ -1,1 +1,52 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document</title><link rel="stylesheet" href="css/styles.css"></head><body><h1>tuna branding</h1><div class="slider-container" id="slider"><img src="img/pruebatino1-01.jpg" alt=""><img src="img/pruebatino1-01.jpg" alt=""><img src="img/pruebatino1-01.jpg" alt=""></div><a href="#" id="prev">Anterior</a><a href="#" id="next">Siguiente</a><script src="js/jquery.js"></script><script src="js/scripts.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://file.myfontastic.com/cCpu5mAezx9VVmUU38eZQb/icons.css"/>
+    <link rel="stylesheet" href="css/formulario.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/formulario.js"></script>
+  </head>
+  <body>
+    <h1>tuna branding</h1>
+    <form class="form" method="post" action="php/envio.php" id="form">
+      <div class="inputs">
+        <div class="input-group width-50"><span class="form__span icon-name"></span>
+          <input class="form__input" type="text" name="name" id="name" placeholder="Nombre:" required="required"/>
+        </div>
+        <div class="input-group width-50"><span class="form__span icon-cia"></span>
+          <input class="form__input" type="text" name="company" id="company" placeholder="Empresa:" required="required"/>
+        </div>
+      </div>
+      <div class="inputs">
+        <div class="input-group width-50"><span class="form__span icon-mail"></span>
+          <input class="form__input" type="email" name="email" id="email" placeholder="Correo Elecrónico:" required="required"/>
+        </div>
+        <div class="input-group width-50"><span class="form__span icon-phone"></span>
+          <input class="form__input" type="text" name="phone" id="phone" placeholder="Teléfono:" required="required"/>
+        </div>
+      </div>
+      <div class="textarea-group"><span class="form__span icon-edit1"></span>
+        <textarea class="form__textarea" name="message" id="message" placeholder="Mensaje:"></textarea>
+      </div>
+      <div class="form__footer">
+        <div class="form__log">
+          <div class="success" id="success">
+            <p>Su mensaje fue enviado con éxito, en breve nos pondrémos es contácto con usted</p>
+          </div>
+          <div class="error" id="error">
+            <p>ocurrio un problema al intenta enviar su mensaje, por favor, vuelva a intentarlo</p>
+          </div>
+        </div>
+        <div class="form-button">
+          <button class="form-enviar" type="submit">Enviar</button>
+        </div>
+      </div>
+    </form>
+    <script src="js/slider.js"></script>
+  </body>
+</html>

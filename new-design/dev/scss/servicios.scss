@@ -1,0 +1,48 @@
+.services-container{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  &__item{
+    flex: auto;
+    width: 100%;
+    margin: 1em;
+    @media screen and (min-width: 768px){
+      flex: auto;
+      width: calc(50% - 2em);
+    }
+    @media screen and (min-width: 1024px) {
+      flex: auto;
+      width: calc(33.33% - 2em);
+    }
+  }
+  &__icon{
+    $size: 100px;
+    display: block;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    text-align: center;
+    font-size: 1.5em;
+    border: 1px solid rgba(grey,.25);
+    border-radius: 50%;
+    margin: 0 auto;
+    color: #323e72;
+    &::before{
+      position: relative;
+      top: 2px;
+    }
+  }
+  &__title{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+  &__description{
+    text-align: center;
+    text-transform: inherit;
+  }
+}
